@@ -143,6 +143,23 @@ public class DAOCompraAnulado implements OperacionesCompraAnulado {
             rs = ps.executeQuery();
             if (rs.next()) {
                 ca.setIdcompraanulado(rs.getInt(1));
+                ca.setFechahoranulado(rs.getTimestamp(2));
+                ca.setObservacionanulado(rs.getString(3));
+                ca.setIdmotivo(rs.getInt(4));
+                ca.setIdusuarioanulado(rs.getInt(5));
+                ca.setIdcompra(rs.getInt(6));
+                ca.setNumerodocumento(rs.getString(7));
+                ca.setNumerotimbrado(rs.getInt(8));
+                ca.setFecha(rs.getDate(9));
+                ca.setObservacion(rs.getString(10));
+                ca.setIdmoneda(rs.getInt(11));
+                ca.setIddeposito(rs.getInt(12));
+                ca.setIdtipomovimiento(rs.getInt(13));
+                ca.setIdproveedor(rs.getInt(14));
+                ca.setIdusuario(rs.getInt(15));
+                ca.setTotalneto(rs.getDouble(16));
+                ca.setTotaliva(rs.getDouble(17));
+                ca.setIdcuenta(rs.getInt(18));
                 con.close();
                 return true;
             } else {
@@ -157,45 +174,21 @@ public class DAOCompraAnulado implements OperacionesCompraAnulado {
     }
 
     @Override
-    public ArrayList<Object[]> consultar(String criterio) {
-        String sql = "SELECT \n"
-                + "CA.idcompraanulado, \n"
-                + "DATE_FORMAT(CA.fechahoraanulado, '%d/%m/%Y %H:%i:%s') AS Fecha_hora_anulado, \n"
-                + "CA.observacionanulado, \n"
-                + "CA.idmotivo, \n"
-                + "MA.descripcion AS Motivo,\n"
-                + "CA.idusuarioanulado, \n"
-                + "CONCAT(U.nombre,' ',U.apellido) AS Usuario_anulacion,\n"
-                + "CA.idcompra, \n"
-                + "CA.numerodocumento, \n"
-                + "CA.numerotimbrado, \n"
-                + "DATE_FORMAT(CA.fecha, '%d/%m/%Y') AS Fecha_comprobante, \n"
-                + "CA.observacion, \n"
-                + "CA.idmoneda, \n"
-                + "M.descripcion AS Moneda,\n"
-                + "CA.iddeposito, \n"
-                + "D.descripcion AS Deposito,\n"
-                + "CA.idtipomovimiento, \n"
-                + "TM.abreviacion AS Tipo_movimiento,\n"
-                + "CA.idproveedor, \n"
-                + "P.razonsocial AS Proveedor,\n"
-                + "CA.idusuario, \n"
-                + "CONCAT(U.nombre,' ',U.apellido) AS Usuario,\n"
-                + "CA.totalneto, \n"
-                + "CA.totaliva, \n"
-                + "CA.idcuenta,\n"
-                + "C.descripcion AS Cuenta\n"
-                + "FROM compra_anulado AS CA\n"
-                + "INNER JOIN motivo_anulacion AS MA ON MA.idmotivo = CA.idmotivo\n"
-                + "INNER JOIN usuario AS UA ON UA.idusuario = CA.idusuarioanulado\n"
-                + "INNER JOIN moneda AS M ON M.idmoneda = CA.idmoneda\n"
-                + "INNER JOIN deposito AS D ON D.iddeposito = CA.iddeposito\n"
-                + "INNER JOIN tipo_movimiento AS TM ON TM.idtipomovimiento = CA.idtipomovimiento\n"
-                + "INNER JOIN proveedor AS P ON P.idproveedor = CA.idproveedor\n"
-                + "INNER JOIN usuario AS U ON U.idusuario = CA.idusuario\n"
-                + "INNER JOIN cuenta AS C ON C.idcuenta = CA.idcuenta\n"
-                + "WHERE CONCAT(CA.numerodocumento, CA.numerotimbrado, DATE_FORMAT(CA.fecha, '%d/%m/%Y')) LIKE ?\n"
-                + "ORDER BY CA.numerodocumento;";
+    public ArrayList<Object[]> consultar(String criterio, int idtipomovimiento) {
+        String sql = "SELECT\n"
+                + "VCA.idcompraanulado AS idanulacion,\n"
+                + "CONVERT(SUBSTR(VCA.numerodocumento, 1, 3), INTEGER) AS establecimiento,\n"
+                + "CONVERT(SUBSTR(VCA.numerodocumento, 5, 3), INTEGER) AS puntemision,\n"
+                + "CONVERT(SUBSTR(VCA.numerodocumento, 9, 7), INTEGER) AS numero,\n"
+                + "VCA.numerodocumento AS numero_documento,\n"
+                + "VCA.numerotimbrado AS numero_timbrado,\n"
+                + "VCA.Fecha_comprobante AS fecha_comprobante,\n"
+                + "VCA.idproveedor AS idproveedor,\n"
+                + "VCA.Proveedor AS proveedor\n"
+                + "FROM v_compra_anulado AS VCA\n"
+                + "WHERE VCA.idtipomovimiento = ?\n"
+                + "AND 	CONCAT(VCA.Motivo, VCA.numerodocumento, VCA.numerotimbrado, VCA.Fecha_comprobante, VCA.Moneda, VCA.Proveedor) LIKE ?\n"
+                + "ORDER BY VCA.Fecha_hora_anulado DESC;";
         Connection con;
         PreparedStatement ps;
         ResultSet rs;
@@ -204,36 +197,20 @@ public class DAOCompraAnulado implements OperacionesCompraAnulado {
             Class.forName(db.getDriver());
             con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPass());
             ps = con.prepareStatement(sql);
-            ps.setString(1, "%" + criterio + "%");
+            ps.setInt(1, idtipomovimiento);
+            ps.setString(2, "%" + criterio + "%");
             rs = ps.executeQuery();
             while (rs.next()) {
-                Object[] fila = new Object[26];
+                Object[] fila = new Object[9];
                 fila[0] = rs.getInt(1);
-                fila[1] = rs.getString(2);
-                fila[2] = rs.getString(3);
+                fila[1] = rs.getInt(2);
+                fila[2] = rs.getInt(3);
                 fila[3] = rs.getInt(4);
                 fila[4] = rs.getString(5);
                 fila[5] = rs.getInt(6);
                 fila[6] = rs.getString(7);
                 fila[7] = rs.getInt(8);
                 fila[8] = rs.getString(9);
-                fila[9] = rs.getInt(10);
-                fila[10] = rs.getString(11);
-                fila[11] = rs.getString(12);
-                fila[12] = rs.getInt(13);
-                fila[13] = rs.getString(14);
-                fila[14] = rs.getInt(15);
-                fila[15] = rs.getString(16);
-                fila[16] = rs.getInt(17);
-                fila[17] = rs.getString(18);
-                fila[18] = rs.getInt(19);
-                fila[19] = rs.getString(20);
-                fila[20] = rs.getInt(21);
-                fila[21] = rs.getString(22);
-                fila[22] = rs.getDouble(23);
-                fila[23] = rs.getDouble(24);
-                fila[24] = rs.getInt(25);
-                fila[25] = rs.getString(26);
                 datos.add(fila);
             }
             con.close();

@@ -1,10 +1,5 @@
 package Controladores;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Iterator;
-
 /**
  *
  * @author armando
@@ -18,6 +13,7 @@ public class Database {
 
     public Database() {
         
+        //this.url = "jdbc:mysql://localhost:3306/AS?useUnicode=true&characterEncoding=UTF-8";
         this.url = "jdbc:mysql://localhost:3306/AS?useUnicode=true&characterEncoding=UTF-8";
         this.driver = "com.mysql.jdbc.Driver";
         this.user = "root";
