@@ -108,10 +108,8 @@ public class Principal extends javax.swing.JFrame {
         itemTipoArticulo = new javax.swing.JMenuItem();
         itemUnidadMedida = new javax.swing.JMenuItem();
         menuMovimientoCompras = new javax.swing.JMenu();
-        itemCompra = new javax.swing.JMenuItem();
-        itemPagoCuota = new javax.swing.JMenuItem();
-        itemPagoCuotaAnulacion = new javax.swing.JMenuItem();
         itemCompraAnulacion = new javax.swing.JMenuItem();
+        itemCompra = new javax.swing.JMenuItem();
         menuConsultaCompras = new javax.swing.JMenu();
         itemConsultaCompra = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -133,6 +131,8 @@ public class Principal extends javax.swing.JFrame {
         itemCuenta = new javax.swing.JMenuItem();
         itemProveedor = new javax.swing.JMenuItem();
         menuMovimientoFinanzas = new javax.swing.JMenu();
+        itemPagoCuotaAnulacion = new javax.swing.JMenuItem();
+        itemPagoCuota = new javax.swing.JMenuItem();
         menuConsultaFinanzas = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
         jMenu7 = new javax.swing.JMenu();
@@ -191,7 +191,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoCompras.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
 
         itemArticulo.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemArticulo.setText("Mantenimiento de Artículos");
+        itemArticulo.setText("Artículos");
         itemArticulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemArticuloActionPerformed(evt);
@@ -200,7 +200,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoCompras.add(itemArticulo);
 
         itemImpuesto.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemImpuesto.setText("Mantenimiento de Impuestos");
+        itemImpuesto.setText("Impuestos");
         itemImpuesto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemImpuestoActionPerformed(evt);
@@ -209,7 +209,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoCompras.add(itemImpuesto);
 
         itemMarca.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemMarca.setText("Mantenimiento de Marcas");
+        itemMarca.setText("Marcas");
         itemMarca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemMarcaActionPerformed(evt);
@@ -218,7 +218,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoCompras.add(itemMarca);
 
         itemLinea.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemLinea.setText("Mantenimiento de Líneas");
+        itemLinea.setText("Líneas");
         itemLinea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemLineaActionPerformed(evt);
@@ -227,7 +227,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoCompras.add(itemLinea);
 
         itemPais.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemPais.setText("Mantenimiento de Países");
+        itemPais.setText("Países");
         itemPais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemPaisActionPerformed(evt);
@@ -236,7 +236,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoCompras.add(itemPais);
 
         itemSeccion.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemSeccion.setText("Mantenimiento de Secciones");
+        itemSeccion.setText("Secciones");
         itemSeccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemSeccionActionPerformed(evt);
@@ -245,7 +245,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoCompras.add(itemSeccion);
 
         itemTipoArticulo.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemTipoArticulo.setText("Mantenimiento de Tipos de Artículos");
+        itemTipoArticulo.setText("Tipos de Artículos");
         itemTipoArticulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemTipoArticuloActionPerformed(evt);
@@ -254,7 +254,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoCompras.add(itemTipoArticulo);
 
         itemUnidadMedida.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemUnidadMedida.setText("Mantenimiento de Unidades de Medidas");
+        itemUnidadMedida.setText("Unidades de Medidas");
         itemUnidadMedida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemUnidadMedidaActionPerformed(evt);
@@ -268,41 +268,23 @@ public class Principal extends javax.swing.JFrame {
         menuMovimientoCompras.setText("Movimientos");
         menuMovimientoCompras.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
 
-        itemCompra.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemCompra.setText("Movimiento de Compras");
-        itemCompra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemCompraActionPerformed(evt);
-            }
-        });
-        menuMovimientoCompras.add(itemCompra);
-
-        itemPagoCuota.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemPagoCuota.setText("Movimiento de Pagos de Cuotas");
-        itemPagoCuota.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemPagoCuotaActionPerformed(evt);
-            }
-        });
-        menuMovimientoCompras.add(itemPagoCuota);
-
-        itemPagoCuotaAnulacion.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemPagoCuotaAnulacion.setText("Movimiento de Anulación de Pagos de Cuotas");
-        itemPagoCuotaAnulacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemPagoCuotaAnulacionActionPerformed(evt);
-            }
-        });
-        menuMovimientoCompras.add(itemPagoCuotaAnulacion);
-
         itemCompraAnulacion.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemCompraAnulacion.setText("Movimiento de Anulación de Compras");
+        itemCompraAnulacion.setText("Anulación de Compras");
         itemCompraAnulacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemCompraAnulacionActionPerformed(evt);
             }
         });
         menuMovimientoCompras.add(itemCompraAnulacion);
+
+        itemCompra.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        itemCompra.setText("Compras");
+        itemCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemCompraActionPerformed(evt);
+            }
+        });
+        menuMovimientoCompras.add(itemCompra);
 
         jMenu2.add(menuMovimientoCompras);
 
@@ -311,7 +293,7 @@ public class Principal extends javax.swing.JFrame {
         menuConsultaCompras.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
 
         itemConsultaCompra.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemConsultaCompra.setText("Consulta de Compras Realizadas");
+        itemConsultaCompra.setText("Compras Realizadas");
         itemConsultaCompra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemConsultaCompraActionPerformed(evt);
@@ -332,7 +314,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoVentas.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
 
         itemListaPrecio.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemListaPrecio.setText("Mantenimiento de Listas de Precios");
+        itemListaPrecio.setText("Listas de Precios");
         itemListaPrecio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemListaPrecioActionPerformed(evt);
@@ -341,7 +323,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoVentas.add(itemListaPrecio);
 
         itemArticuloListaPrecio.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemArticuloListaPrecio.setText("Mantenimiento de Precios de Artículos");
+        itemArticuloListaPrecio.setText("Precios de Artículos");
         itemArticuloListaPrecio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemArticuloListaPrecioActionPerformed(evt);
@@ -393,7 +375,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoFinanzas.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
 
         itemBanco.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemBanco.setText("Mantenimiento de Bancos");
+        itemBanco.setText("Bancos");
         itemBanco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemBancoActionPerformed(evt);
@@ -402,7 +384,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoFinanzas.add(itemBanco);
 
         itemCaja.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemCaja.setText("Mantenimiento de Cajas");
+        itemCaja.setText("Cajas");
         itemCaja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemCajaActionPerformed(evt);
@@ -411,7 +393,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoFinanzas.add(itemCaja);
 
         itemCliente.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemCliente.setText("Mantenimiento de Clientes");
+        itemCliente.setText("Clientes");
         itemCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemClienteActionPerformed(evt);
@@ -420,7 +402,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoFinanzas.add(itemCliente);
 
         itemCotizacion.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemCotizacion.setText("Mantenimiento de Cotizaciónes");
+        itemCotizacion.setText("Cotizaciónes");
         itemCotizacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemCotizacionActionPerformed(evt);
@@ -429,7 +411,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoFinanzas.add(itemCotizacion);
 
         itemCuenta.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemCuenta.setText("Mantenimiento de Cuentas");
+        itemCuenta.setText("Cuentas");
         itemCuenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemCuentaActionPerformed(evt);
@@ -438,7 +420,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoFinanzas.add(itemCuenta);
 
         itemProveedor.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemProveedor.setText("Mantenimiento de Proveedores");
+        itemProveedor.setText("Proveedores");
         itemProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemProveedorActionPerformed(evt);
@@ -451,6 +433,25 @@ public class Principal extends javax.swing.JFrame {
         menuMovimientoFinanzas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8_course_16px.png"))); // NOI18N
         menuMovimientoFinanzas.setText("Movimientos");
         menuMovimientoFinanzas.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+
+        itemPagoCuotaAnulacion.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        itemPagoCuotaAnulacion.setText("Anulación de Pagos de Cuotas");
+        itemPagoCuotaAnulacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemPagoCuotaAnulacionActionPerformed(evt);
+            }
+        });
+        menuMovimientoFinanzas.add(itemPagoCuotaAnulacion);
+
+        itemPagoCuota.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        itemPagoCuota.setText("Pagos de Cuotas");
+        itemPagoCuota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemPagoCuotaActionPerformed(evt);
+            }
+        });
+        menuMovimientoFinanzas.add(itemPagoCuota);
+
         jMenu5.add(menuMovimientoFinanzas);
 
         menuConsultaFinanzas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8_browse_folder_16px.png"))); // NOI18N
@@ -474,7 +475,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoSistemas.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
 
         itemProgramaUsuario.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemProgramaUsuario.setText("Asignacion de Programas a Usuarios");
+        itemProgramaUsuario.setText("Asignación de Programas a Usuarios");
         itemProgramaUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemProgramaUsuarioActionPerformed(evt);
@@ -483,7 +484,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoSistemas.add(itemProgramaUsuario);
 
         itemDeposito.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemDeposito.setText("Mantenimiento de Depósitos");
+        itemDeposito.setText("Depósitos");
         itemDeposito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemDepositoActionPerformed(evt);
@@ -492,7 +493,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoSistemas.add(itemDeposito);
 
         itemEmpresa.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemEmpresa.setText("Mantenimiento de Empresas");
+        itemEmpresa.setText("Empresas");
         itemEmpresa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemEmpresaActionPerformed(evt);
@@ -501,7 +502,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoSistemas.add(itemEmpresa);
 
         itemMoneda.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemMoneda.setText("Mantenimiento de Monedas");
+        itemMoneda.setText("Monedas");
         itemMoneda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemMonedaActionPerformed(evt);
@@ -510,7 +511,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoSistemas.add(itemMoneda);
 
         itemMotivoAjuste.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemMotivoAjuste.setText("Mantenimiento de Motivos de Ajustes");
+        itemMotivoAjuste.setText("Motivos de Ajustes");
         itemMotivoAjuste.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemMotivoAjusteActionPerformed(evt);
@@ -519,7 +520,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoSistemas.add(itemMotivoAjuste);
 
         itemMotivoAnulacion.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemMotivoAnulacion.setText("Mantenimiento de Motivos de Anulación");
+        itemMotivoAnulacion.setText("Motivos de Anulación");
         itemMotivoAnulacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemMotivoAnulacionActionPerformed(evt);
@@ -528,7 +529,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoSistemas.add(itemMotivoAnulacion);
 
         itemTipoMovimiento.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemTipoMovimiento.setText("Mantenimiento de Movimientos");
+        itemTipoMovimiento.setText("Tipos de Movimientos");
         itemTipoMovimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemTipoMovimientoActionPerformed(evt);
@@ -537,7 +538,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoSistemas.add(itemTipoMovimiento);
 
         itemPeriodo.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemPeriodo.setText("Mantenimiento de Periodos");
+        itemPeriodo.setText("Periodos");
         itemPeriodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemPeriodoActionPerformed(evt);
@@ -546,7 +547,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoSistemas.add(itemPeriodo);
 
         itemPrograma.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemPrograma.setText("Mantenimiento de Programas");
+        itemPrograma.setText("Programas");
         itemPrograma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemProgramaActionPerformed(evt);
@@ -555,7 +556,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoSistemas.add(itemPrograma);
 
         itemSucursal.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemSucursal.setText("Mantenimiento de Sucursales");
+        itemSucursal.setText("Sucursales");
         itemSucursal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemSucursalActionPerformed(evt);
@@ -564,7 +565,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoSistemas.add(itemSucursal);
 
         itemTipoComprobante.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemTipoComprobante.setText("Mantenimiento de Tipos de Comprobantes");
+        itemTipoComprobante.setText("Tipos de Comprobantes");
         itemTipoComprobante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemTipoComprobanteActionPerformed(evt);
@@ -573,7 +574,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoSistemas.add(itemTipoComprobante);
 
         itemTipoCliente.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemTipoCliente.setText("Mantenimiento de Tipos de Clientes");
+        itemTipoCliente.setText("Tipos de Clientes");
         itemTipoCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemTipoClienteActionPerformed(evt);
@@ -582,7 +583,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoSistemas.add(itemTipoCliente);
 
         itemTipoProveedor.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemTipoProveedor.setText("Mantenimiento de Tipos de Proveedores");
+        itemTipoProveedor.setText("Tipos de Proveedores");
         itemTipoProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemTipoProveedorActionPerformed(evt);
@@ -591,7 +592,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoSistemas.add(itemTipoProveedor);
 
         itemTipoTarjeta.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemTipoTarjeta.setText("Mantenimiento de Tipos de Tarjetas");
+        itemTipoTarjeta.setText("Tipos de Tarjetas");
         itemTipoTarjeta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemTipoTarjetaActionPerformed(evt);
@@ -600,7 +601,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoSistemas.add(itemTipoTarjeta);
 
         itemUsuarios.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemUsuarios.setText("Mantenimiento de Usuarios");
+        itemUsuarios.setText("Usuarios");
         itemUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemUsuariosActionPerformed(evt);
@@ -609,7 +610,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoSistemas.add(itemUsuarios);
 
         itemTimbrado.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemTimbrado.setText("Mantenimiento de Timbrados");
+        itemTimbrado.setText("Timbrados");
         itemTimbrado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemTimbradoActionPerformed(evt);
@@ -618,7 +619,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimientoSistemas.add(itemTimbrado);
 
         itemConfiguracion.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemConfiguracion.setText("Mantenimiento de Configuración");
+        itemConfiguracion.setText("Configuración");
         itemConfiguracion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemConfiguracionActionPerformed(evt);
