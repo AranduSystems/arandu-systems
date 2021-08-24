@@ -50,6 +50,8 @@ import Vistas.JFrmUsuario;
 import Vistas.JFrmUsuarioPrograma;
 import com.formdev.flatlaf.*;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.beans.PropertyVetoException;
 import javax.swing.JOptionPane;
 
@@ -74,6 +76,12 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
     }
+    
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/arandulogo.png"));
+        return retValue;
+    }
 
     private boolean verificarPermisos(int idusuario, String programa) {
         p.setDescripcion(programa);
@@ -96,6 +104,7 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         panelInterno = new javax.swing.JDesktopPane();
+        jLabel10 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -159,6 +168,7 @@ public class Principal extends javax.swing.JFrame {
         menuConsultasSistemas = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
@@ -166,15 +176,27 @@ public class Principal extends javax.swing.JFrame {
         jLabel1.setText("Arandu Systems - 2021. Desarrollado por Armando Ariel Peralta Martinez. Contacto: +595 975489075");
         jLabel1.setOpaque(true);
 
+        jLabel10.setFont(new java.awt.Font("Segoe UI Semilight", 1, 20)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/arandulogo.png"))); // NOI18N
+
+        panelInterno.setLayer(jLabel10, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout panelInternoLayout = new javax.swing.GroupLayout(panelInterno);
         panelInterno.setLayout(panelInternoLayout);
         panelInternoLayout.setHorizontalGroup(
             panelInternoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(panelInternoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         panelInternoLayout.setVerticalGroup(
             panelInternoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 364, Short.MAX_VALUE)
+            .addGroup(panelInternoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE))
         );
 
         jMenuBar1.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
@@ -1445,6 +1467,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemUnidadMedida;
     private javax.swing.JMenuItem itemUsuarios;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
