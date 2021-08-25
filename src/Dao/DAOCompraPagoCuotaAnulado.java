@@ -133,6 +133,15 @@ public class DAOCompraPagoCuotaAnulado implements OperacionesCompraPagoCuotaAnul
             rs = ps.executeQuery();
             if (rs.next()) {
                 cpca.setIdpago(rs.getInt(1));
+                cpca.setFechahoranulado(rs.getTimestamp(2));
+                cpca.setObservacion(rs.getString(3));
+                cpca.setIdmotivo(rs.getInt(4));
+                cpca.setIdusuario(rs.getInt(5));
+                cpca.setIdpago(rs.getInt(6));
+                cpca.setFechapago(rs.getDate(7));
+                cpca.setMonto(rs.getDouble(8));
+                cpca.setNumerocomprobante(rs.getString(9));
+                cpca.setNumerorecibo(rs.getString(10));
                 con.close();
                 return true;
             } else {
@@ -147,7 +156,7 @@ public class DAOCompraPagoCuotaAnulado implements OperacionesCompraPagoCuotaAnul
     }
 
     @Override
-    public ArrayList<Object[]> consultar(String criterio) {
+    public ArrayList<Object[]> consultar(String criterio, int idproveedor) {
         String sql = "SELECT \n"
                 + "CPCA.idpagoanulado, \n"
                 + "DATE_FORMAT(CPCA.fechahoraanulado, '%d/%m/%Y %H:%i:%s') AS fecha_anulacion, \n"
@@ -155,14 +164,13 @@ public class DAOCompraPagoCuotaAnulado implements OperacionesCompraPagoCuotaAnul
                 + "CPCA.idmotivo, \n"
                 + "CPCA.idusuario, \n"
                 + "CPCA.idpago, \n"
-                + "C.numerodocumento,\n"
+                + "CPCA.numerorecibo,\n"
                 + "DATE_FORMAT(CPCA.fechapago, '%d/%m/%Y') AS fecha_pago,\n"
                 + "CPCA.monto\n"
                 + "FROM compra_pago_cuota_anulado AS CPCA\n"
                 + "INNER JOIN motivo_anulacion AS MA ON MA.idmotivo = CPCA.idmotivo\n"
                 + "INNER JOIN usuario AS U ON U.idusuario = CPCA.idusuario\n"
-                + "INNER JOIN compra AS C ON C.idcompra = CPCA.idcompra\n"
-                + "WHERE CONCAT(C.numerodocumento, CPCA.idpago, DATE_FORMAT(CPCA.fechapago, '%d/%m/%Y')) LIKE ?;";
+                + "WHERE CONCAT(CPCA.numerocomprobante, CPCA.numerorecibo, CPCA.idpago, DATE_FORMAT(CPCA.fechapago, '%d/%m/%Y')) LIKE ?;";
         Connection con;
         PreparedStatement ps;
         ResultSet rs;
@@ -182,8 +190,8 @@ public class DAOCompraPagoCuotaAnulado implements OperacionesCompraPagoCuotaAnul
                 fila[4] = rs.getInt(5);
                 fila[5] = rs.getInt(6);
                 fila[6] = rs.getString(7);
-                fila[7] = rs.getString(9);
-                fila[8] = rs.getDouble(10);
+                fila[7] = rs.getString(8);
+                fila[8] = rs.getDouble(9);
                 datos.add(fila);
             }
             con.close();

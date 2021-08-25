@@ -19,6 +19,7 @@ import Vistas.JFrmCompraAnulacion;
 import Vistas.JFrmConfiguracion;
 import Vistas.JFrmConsultaCompra;
 import Vistas.JFrmConsultaCompraAnulado;
+import Vistas.JFrmConsultaPagoCuotaAnulado;
 import Vistas.JFrmCotizacion;
 import Vistas.JFrmCuenta;
 import Vistas.JFrmDeposito;
@@ -145,6 +146,7 @@ public class Principal extends javax.swing.JFrame {
         itemPagoCuotaAnulacion = new javax.swing.JMenuItem();
         itemPagoCuota = new javax.swing.JMenuItem();
         menuConsultaFinanzas = new javax.swing.JMenu();
+        itemConsultaPagoCuotaAnulado = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenu7 = new javax.swing.JMenu();
         menuMantenimientoSistemas = new javax.swing.JMenu();
@@ -490,6 +492,16 @@ public class Principal extends javax.swing.JFrame {
         menuConsultaFinanzas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8_browse_folder_16px.png"))); // NOI18N
         menuConsultaFinanzas.setText("Consultas");
         menuConsultaFinanzas.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+
+        itemConsultaPagoCuotaAnulado.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        itemConsultaPagoCuotaAnulado.setText("Pagos Anulados");
+        itemConsultaPagoCuotaAnulado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemConsultaPagoCuotaAnuladoActionPerformed(evt);
+            }
+        });
+        menuConsultaFinanzas.add(itemConsultaPagoCuotaAnulado);
+
         jMenu5.add(menuConsultaFinanzas);
 
         jMenuBar1.add(jMenu5);
@@ -1391,6 +1403,24 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_itemConsultaCompraAnuladoActionPerformed
 
+    private void itemConsultaPagoCuotaAnuladoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemConsultaPagoCuotaAnuladoActionPerformed
+        JFrmConsultaPagoCuotaAnulado fm = new JFrmConsultaPagoCuotaAnulado();
+        panelInterno.add(fm);
+        Dimension desktopSize = panelInterno.getSize();
+        Dimension frameSize = fm.getSize();
+        fm.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
+        try {
+            fm.setSelected(true);
+        } catch (PropertyVetoException e) {
+            JOptionPane.showMessageDialog(null, "ERROR AL ABRIR EL FORMULARIO: " + fm.getTitle(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        if (verificarPermisos(App.appLogin.IDUSUARIO, fm.getTitle()) == true) {
+            fm.show();
+        } else {
+            JOptionPane.showMessageDialog(null, "EL PROGRAMA NO ESTA HABILITADO PARA EL USUARIO\nPROGRAMA: " + fm.getTitle() + " USUARIO: " + App.appLogin.LOGIN, "ACCESO RESTRINGIDO", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_itemConsultaPagoCuotaAnuladoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1437,6 +1467,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemConfiguracion;
     private javax.swing.JMenuItem itemConsultaCompra;
     private javax.swing.JMenuItem itemConsultaCompraAnulado;
+    private javax.swing.JMenuItem itemConsultaPagoCuotaAnulado;
     private javax.swing.JMenuItem itemCotizacion;
     private javax.swing.JMenuItem itemCuenta;
     private javax.swing.JMenuItem itemDeposito;
