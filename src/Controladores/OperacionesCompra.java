@@ -13,4 +13,5 @@ public interface OperacionesCompra {
     public int nuevoID();
     public boolean verificarExistenciaCompra(String numerodocumento, int numerotimbrado);
     public ArrayList<Object[]> consultar(String criterio, int idtipomovimiento);
+    public boolean consultarDatos(Object obj);
 }

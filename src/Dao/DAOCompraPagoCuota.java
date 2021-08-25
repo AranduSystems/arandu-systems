@@ -132,6 +132,14 @@ public class DAOCompraPagoCuota implements OperacionesCompraPagoCuota {
             rs = ps.executeQuery();
             if (rs.next()) {
                 cpc.setIdpago(rs.getInt(1));
+                cpc.setIdcompra(rs.getInt(2));
+                cpc.setNumero(rs.getInt(3));
+                cpc.setFechapago(rs.getDate(4));
+                cpc.setMonto(rs.getDouble(5));
+                cpc.setIdcuenta(rs.getInt(6));
+                cpc.setIdusuario(rs.getInt(7));
+                cpc.setNumerocomprobante(rs.getString(8));
+                cpc.setIdtipomovimiento(rs.getInt(9));
                 con.close();
                 return true;
             } else {
