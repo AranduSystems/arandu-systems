@@ -1,15 +1,17 @@
 package Vistas;
 
-import App.appLogin;
 import Dao.DAOCProveedor;
 import Dao.DAOCompraPagoCuota;
 import Dao.DAOCompraPagoCuotaAnulado;
 import Dao.DAOCotizacion;
 import Dao.DAOMotivoAnulacion;
+import Dao.DAOUsuario;
 import Modelos.CompraPagoCuotaAnulado;
 import Modelos.Proveedor;
 import Modelos.MotivoAnulacion;
+import Modelos.Usuario;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -23,22 +25,29 @@ public class JFrmConsultaPagoCuotaAnulado extends javax.swing.JInternalFrame {
     Proveedor p = new Proveedor();
     MotivoAnulacion ma = new MotivoAnulacion();
     CompraPagoCuotaAnulado cpca = new CompraPagoCuotaAnulado();
+    Usuario u = new Usuario();
 
     DAOCProveedor daoProveedor = new DAOCProveedor();
     DAOCompraPagoCuota daoPagoCuota = new DAOCompraPagoCuota();
     DAOCompraPagoCuotaAnulado daoPagoCuotaAnulado = new DAOCompraPagoCuotaAnulado();
     DAOMotivoAnulacion daoMotivoAnulacion = new DAOMotivoAnulacion();
     DAOCotizacion daoCotizacion = new DAOCotizacion();
+    DAOUsuario daoUsuario = new DAOUsuario();
 
     ArrayList<Object[]> datosProveedor = new ArrayList<>();
     ArrayList<Object[]> datosPagoCuotaAnulado = new ArrayList<>();
     ArrayList<Object[]> datosMotivo = new ArrayList<>();
 
     ArrayList<Object[]> datos = new ArrayList<>();
+    
+    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat formatoHora = new SimpleDateFormat("dd/MM/yyyy : HH:mm:ss");
 
     //VARIABLE QUE MANEJA QUE TIPOS DE OPERACIONES SE REALIZARAN: SI VA A SER ALTA, BAJA O MODIFICACION DEL REGISTRO
     String operacion = "";
     Double montoPago = 0.0;
+    
+    
 
     /**
      * Creates new form JFrmConsultaPagoCuotaAnulado
@@ -97,27 +106,43 @@ public class JFrmConsultaPagoCuotaAnulado extends javax.swing.JInternalFrame {
         int fila = tablaDatosPagos.getSelectedRow();
         DecimalFormat formatter = new DecimalFormat("#,###.000");
         if (fila >= 0) {
-            txtNumeroPago.setText(tablaDatosPagos.getValueAt(fila, 0).toString());
-            txtComprobante.setText(tablaDatosPagos.getValueAt(fila, 1).toString());
-            txtRecibo.setText(tablaDatosPagos.getValueAt(fila, 2).toString());
-            montoPago = Double.parseDouble(tablaDatosPagos.getValueAt(fila, 3).toString());
-            txtMontoPago.setText(formatter.format(montoPago));
-            txtFechaPago.setText(tablaDatosPagos.getValueAt(fila, 8).toString());
-            txtCodigoCuenta.setText(tablaDatosPagos.getValueAt(fila, 4).toString());
-            txtDescripcionCuenta.setText(tablaDatosPagos.getValueAt(fila, 5).toString());
-            txtCodigoUsuario.setText(tablaDatosPagos.getValueAt(fila, 6).toString());
-            txtDescripcionUsuario.setText(tablaDatosPagos.getValueAt(fila, 7).toString());
-            txtObservacion.grabFocus();
+            int idpagoanulacion = Integer.parseInt(tablaDatosPagos.getValueAt(fila, 0).toString());
+            cpca.setIdpagoanulado(idpagoanulacion);
+            daoPagoCuotaAnulado.consultarDatos(cpca);
+            txtNumeroPago.setText("" + cpca.getIdpago());
+            txtComprobante.setText(cpca.getNumerocomprobante());
+            txtRecibo.setText(cpca.getNumerorecibo());
+            double monto = cpca.getMonto();
+            txtMontoPago.setText(formatter.format(monto));
+            int idusuario = cpca.getIdusuario();
+            u.setIdusuario(idusuario);
+            daoUsuario.consultarDatos(u);
+            txtCodigoUsuario.setText("" + idusuario);
+            txtDescripcionUsuario.setText(u.getNombre() + ' ' + u.getApellido());
+            txtFechaPago.setText(formato.format(cpca.getFechapago()));
+            txtObservacion.setText(cpca.getObservacion());
+            int idmotivoanulacion = cpca.getIdmotivo();
+            ma.setIdmotivo(idmotivoanulacion);
+            daoMotivoAnulacion.consultarDatos(ma);
+            txtCodigoMotivo.setText("" + idmotivoanulacion);
+            txtDescripcionMotivo.setText(ma.getDescripcion());
+            
+            txtCodigoAnulacion.setText("" + idpagoanulacion);
+            txtFechaAnulacion.setText(formatoHora.format(cpca.getFechahoranulado()));
+            
+            btnCancelar.grabFocus();
         } else {
             txtNumeroPago.setText(null);
             txtComprobante.setText(null);
             txtRecibo.setText(null);
             txtMontoPago.setText(null);
             txtFechaPago.setText(null);
-            txtCodigoCuenta.setText(null);
-            txtDescripcionCuenta.setText(null);
             txtCodigoUsuario.setText(null);
             txtDescripcionUsuario.setText(null);
+            txtCodigoMotivo.setText(null);
+            txtDescripcionMotivo.setText(null);
+            txtCodigoAnulacion.setText(null);
+            txtFechaAnulacion.setText(null);
             montoPago = 0.0;
         }
     }
@@ -131,14 +156,14 @@ public class JFrmConsultaPagoCuotaAnulado extends javax.swing.JInternalFrame {
         txtRecibo.setText(null);
         txtMontoPago.setText(null);
         txtFechaPago.setText(null);
-        txtCodigoCuenta.setText(null);
-        txtDescripcionCuenta.setText(null);
         txtCodigoUsuario.setText(null);
         txtDescripcionUsuario.setText(null);
         txtObservacion.setText(null);
         montoPago = 0.0;
         txtCodigoMotivo.setText(null);
         txtDescripcionMotivo.setText(null);
+        txtCodigoAnulacion.setText(null);
+        txtFechaAnulacion.setText(null);
         txtCodigoProveedor.grabFocus();
     }
 
@@ -182,9 +207,6 @@ public class JFrmConsultaPagoCuotaAnulado extends javax.swing.JInternalFrame {
         jLabel30 = new javax.swing.JLabel();
         txtMontoPago = new org.jdesktop.swingx.JXTextField();
         jLabel27 = new javax.swing.JLabel();
-        txtCodigoCuenta = new org.jdesktop.swingx.JXTextField();
-        jLabel21 = new javax.swing.JLabel();
-        txtDescripcionCuenta = new org.jdesktop.swingx.JXTextField();
         txtCodigoUsuario = new org.jdesktop.swingx.JXTextField();
         txtDescripcionUsuario = new org.jdesktop.swingx.JXTextField();
         jLabel22 = new javax.swing.JLabel();
@@ -196,6 +218,10 @@ public class JFrmConsultaPagoCuotaAnulado extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         txtCodigoMotivo = new org.jdesktop.swingx.JXTextField();
         txtDescripcionMotivo = new org.jdesktop.swingx.JXTextField();
+        jLabel32 = new javax.swing.JLabel();
+        txtFechaAnulacion = new org.jdesktop.swingx.JXTextField();
+        jLabel33 = new javax.swing.JLabel();
+        txtCodigoAnulacion = new org.jdesktop.swingx.JXTextField();
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -418,7 +444,7 @@ public class JFrmConsultaPagoCuotaAnulado extends javax.swing.JInternalFrame {
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Movimiento de Anulación de Pagos de Cuotas");
+        jLabel1.setText("Consulta de Pago de Cuota Anulado");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -543,21 +569,6 @@ public class JFrmConsultaPagoCuotaAnulado extends javax.swing.JInternalFrame {
         jLabel27.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jLabel27.setText("Monto del Pago:");
 
-        txtCodigoCuenta.setBackground(new java.awt.Color(0, 102, 102));
-        txtCodigoCuenta.setForeground(new java.awt.Color(255, 255, 255));
-        txtCodigoCuenta.setDisabledTextColor(new java.awt.Color(255, 255, 255));
-        txtCodigoCuenta.setEnabled(false);
-        txtCodigoCuenta.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        txtCodigoCuenta.setPrompt("Cód. Cuenta");
-
-        jLabel21.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jLabel21.setText("Cuenta:");
-
-        txtDescripcionCuenta.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        txtDescripcionCuenta.setEnabled(false);
-        txtDescripcionCuenta.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        txtDescripcionCuenta.setPrompt("Descripción o nombre de la cuenta...");
-
         txtCodigoUsuario.setBackground(new java.awt.Color(0, 102, 102));
         txtCodigoUsuario.setForeground(new java.awt.Color(255, 255, 255));
         txtCodigoUsuario.setDisabledTextColor(new java.awt.Color(255, 255, 255));
@@ -598,7 +609,7 @@ public class JFrmConsultaPagoCuotaAnulado extends javax.swing.JInternalFrame {
         jLabel31.setText("Observaciones:");
 
         txtObservacion.setBackground(new java.awt.Color(0, 102, 102));
-        txtObservacion.setDisabledTextColor(new java.awt.Color(153, 153, 153));
+        txtObservacion.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtObservacion.setEnabled(false);
         txtObservacion.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         txtObservacion.setPrompt("Observaciones correspondientes a la anulación...");
@@ -607,13 +618,39 @@ public class JFrmConsultaPagoCuotaAnulado extends javax.swing.JInternalFrame {
         jLabel4.setText("Motivo Anulación:");
 
         txtCodigoMotivo.setBackground(new java.awt.Color(0, 102, 102));
+        txtCodigoMotivo.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtCodigoMotivo.setEnabled(false);
         txtCodigoMotivo.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         txtCodigoMotivo.setPrompt("Cód. M.A.");
 
+        txtDescripcionMotivo.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtDescripcionMotivo.setEnabled(false);
         txtDescripcionMotivo.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         txtDescripcionMotivo.setPrompt("Descripción o nombre del motivo de anulación...");
+
+        jLabel32.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabel32.setText("Fecha/Hora Anu.:");
+
+        txtFechaAnulacion.setBackground(new java.awt.Color(0, 102, 102));
+        txtFechaAnulacion.setForeground(new java.awt.Color(255, 255, 255));
+        txtFechaAnulacion.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtFechaAnulacion.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        txtFechaAnulacion.setEnabled(false);
+        txtFechaAnulacion.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        txtFechaAnulacion.setPrompt("Fecha y hora de la anulacion...");
+        txtFechaAnulacion.setPromptForeground(new java.awt.Color(153, 153, 153));
+
+        jLabel33.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabel33.setText("N° Anulación:");
+
+        txtCodigoAnulacion.setBackground(new java.awt.Color(0, 102, 102));
+        txtCodigoAnulacion.setForeground(new java.awt.Color(255, 255, 255));
+        txtCodigoAnulacion.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtCodigoAnulacion.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        txtCodigoAnulacion.setEnabled(false);
+        txtCodigoAnulacion.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        txtCodigoAnulacion.setPrompt("Cod. Anulación...");
+        txtCodigoAnulacion.setPromptForeground(new java.awt.Color(153, 153, 153));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -625,62 +662,69 @@ public class JFrmConsultaPagoCuotaAnulado extends javax.swing.JInternalFrame {
                     .addComponent(jSeparator1)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtCodigoUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtMontoPago, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtCodigoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDescripcionCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtDescripcionUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(txtCodigoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDescripcionProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtRucProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtFechaPago, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNumeroPago, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscar))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtComprobante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtRecibo, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel32, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel31, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(txtCodigoMotivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtDescripcionMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtObservacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(txtObservacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(txtFechaAnulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCodigoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtDescripcionUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtFechaPago, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(txtCodigoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtDescripcionProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtRucProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNumeroPago, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnBuscar))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCodigoAnulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtMontoPago, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtComprobante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtRecibo, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -716,11 +760,6 @@ public class JFrmConsultaPagoCuotaAnulado extends javax.swing.JInternalFrame {
                     .addComponent(txtMontoPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCodigoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDescripcionCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCodigoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDescripcionUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -737,6 +776,14 @@ public class JFrmConsultaPagoCuotaAnulado extends javax.swing.JInternalFrame {
                     .addComponent(jLabel4)
                     .addComponent(txtCodigoMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDescripcionMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFechaAnulacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCodigoAnulacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCancelar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -909,7 +956,6 @@ public class JFrmConsultaPagoCuotaAnulado extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel27;
@@ -917,6 +963,8 @@ public class JFrmConsultaPagoCuotaAnulado extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
@@ -928,17 +976,17 @@ public class JFrmConsultaPagoCuotaAnulado extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable tablaDatosPagos;
     private javax.swing.JTable tablaDatosProveedor;
-    private org.jdesktop.swingx.JXTextField txtCodigoCuenta;
+    private org.jdesktop.swingx.JXTextField txtCodigoAnulacion;
     private org.jdesktop.swingx.JXTextField txtCodigoMotivo;
     private org.jdesktop.swingx.JXTextField txtCodigoProveedor;
     private org.jdesktop.swingx.JXTextField txtCodigoUsuario;
     private org.jdesktop.swingx.JXTextField txtComprobante;
     private org.jdesktop.swingx.JXTextField txtCriterioPagos;
     private org.jdesktop.swingx.JXTextField txtCriterioProveedor;
-    private org.jdesktop.swingx.JXTextField txtDescripcionCuenta;
     private org.jdesktop.swingx.JXTextField txtDescripcionMotivo;
     private org.jdesktop.swingx.JXTextField txtDescripcionProveedor;
     private org.jdesktop.swingx.JXTextField txtDescripcionUsuario;
+    private org.jdesktop.swingx.JXTextField txtFechaAnulacion;
     private org.jdesktop.swingx.JXTextField txtFechaPago;
     private org.jdesktop.swingx.JXTextField txtMontoPago;
     private org.jdesktop.swingx.JXTextField txtNumeroPago;
