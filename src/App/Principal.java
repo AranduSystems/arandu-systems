@@ -25,6 +25,7 @@ import Vistas.JFrmCotizacion;
 import Vistas.JFrmCuenta;
 import Vistas.JFrmDeposito;
 import Vistas.JFrmEmpresa;
+import Vistas.JFrmImpresora;
 import Vistas.JFrmImpuesto;
 import Vistas.JFrmLinea;
 import Vistas.JFrmListaPrecio;
@@ -153,22 +154,23 @@ public class Principal extends javax.swing.JFrame {
         jMenu7 = new javax.swing.JMenu();
         menuMantenimientoSistemas = new javax.swing.JMenu();
         itemProgramaUsuario = new javax.swing.JMenuItem();
+        itemConfiguracion = new javax.swing.JMenuItem();
         itemDeposito = new javax.swing.JMenuItem();
         itemEmpresa = new javax.swing.JMenuItem();
+        itemImpresora = new javax.swing.JMenuItem();
         itemMoneda = new javax.swing.JMenuItem();
         itemMotivoAjuste = new javax.swing.JMenuItem();
         itemMotivoAnulacion = new javax.swing.JMenuItem();
-        itemTipoMovimiento = new javax.swing.JMenuItem();
         itemPeriodo = new javax.swing.JMenuItem();
         itemPrograma = new javax.swing.JMenuItem();
         itemSucursal = new javax.swing.JMenuItem();
+        itemTimbrado = new javax.swing.JMenuItem();
+        itemTipoMovimiento = new javax.swing.JMenuItem();
         itemTipoComprobante = new javax.swing.JMenuItem();
         itemTipoCliente = new javax.swing.JMenuItem();
         itemTipoProveedor = new javax.swing.JMenuItem();
         itemTipoTarjeta = new javax.swing.JMenuItem();
         itemUsuarios = new javax.swing.JMenuItem();
-        itemTimbrado = new javax.swing.JMenuItem();
-        itemConfiguracion = new javax.swing.JMenuItem();
         menuConsultasSistemas = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -539,6 +541,15 @@ public class Principal extends javax.swing.JFrame {
         });
         menuMantenimientoSistemas.add(itemProgramaUsuario);
 
+        itemConfiguracion.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        itemConfiguracion.setText("Configuración");
+        itemConfiguracion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemConfiguracionActionPerformed(evt);
+            }
+        });
+        menuMantenimientoSistemas.add(itemConfiguracion);
+
         itemDeposito.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         itemDeposito.setText("Depósitos");
         itemDeposito.addActionListener(new java.awt.event.ActionListener() {
@@ -556,6 +567,15 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         menuMantenimientoSistemas.add(itemEmpresa);
+
+        itemImpresora.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        itemImpresora.setText("Impresoras");
+        itemImpresora.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemImpresoraActionPerformed(evt);
+            }
+        });
+        menuMantenimientoSistemas.add(itemImpresora);
 
         itemMoneda.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         itemMoneda.setText("Monedas");
@@ -584,15 +604,6 @@ public class Principal extends javax.swing.JFrame {
         });
         menuMantenimientoSistemas.add(itemMotivoAnulacion);
 
-        itemTipoMovimiento.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemTipoMovimiento.setText("Tipos de Movimientos");
-        itemTipoMovimiento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemTipoMovimientoActionPerformed(evt);
-            }
-        });
-        menuMantenimientoSistemas.add(itemTipoMovimiento);
-
         itemPeriodo.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         itemPeriodo.setText("Periodos");
         itemPeriodo.addActionListener(new java.awt.event.ActionListener() {
@@ -619,6 +630,24 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         menuMantenimientoSistemas.add(itemSucursal);
+
+        itemTimbrado.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        itemTimbrado.setText("Timbrados");
+        itemTimbrado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemTimbradoActionPerformed(evt);
+            }
+        });
+        menuMantenimientoSistemas.add(itemTimbrado);
+
+        itemTipoMovimiento.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        itemTipoMovimiento.setText("Tipos de Movimientos");
+        itemTipoMovimiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemTipoMovimientoActionPerformed(evt);
+            }
+        });
+        menuMantenimientoSistemas.add(itemTipoMovimiento);
 
         itemTipoComprobante.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         itemTipoComprobante.setText("Tipos de Comprobantes");
@@ -664,24 +693,6 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         menuMantenimientoSistemas.add(itemUsuarios);
-
-        itemTimbrado.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemTimbrado.setText("Timbrados");
-        itemTimbrado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemTimbradoActionPerformed(evt);
-            }
-        });
-        menuMantenimientoSistemas.add(itemTimbrado);
-
-        itemConfiguracion.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        itemConfiguracion.setText("Configuración");
-        itemConfiguracion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemConfiguracionActionPerformed(evt);
-            }
-        });
-        menuMantenimientoSistemas.add(itemConfiguracion);
 
         jMenu7.add(menuMantenimientoSistemas);
 
@@ -1450,6 +1461,24 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_itemConsultaPagoCuotaActionPerformed
 
+    private void itemImpresoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemImpresoraActionPerformed
+        JFrmImpresora fm = new JFrmImpresora();
+        panelInterno.add(fm);
+        Dimension desktopSize = panelInterno.getSize();
+        Dimension frameSize = fm.getSize();
+        fm.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
+        try {
+            fm.setSelected(true);
+        } catch (PropertyVetoException e) {
+            JOptionPane.showMessageDialog(null, "ERROR AL ABRIR EL FORMULARIO: " + fm.getTitle(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        if (verificarPermisos(App.appLogin.IDUSUARIO, fm.getTitle()) == true) {
+            fm.show();
+        } else {
+            JOptionPane.showMessageDialog(null, "EL PROGRAMA NO ESTA HABILITADO PARA EL USUARIO\nPROGRAMA: " + fm.getTitle() + " USUARIO: " + App.appLogin.LOGIN, "ACCESO RESTRINGIDO", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_itemImpresoraActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1502,6 +1531,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemCuenta;
     private javax.swing.JMenuItem itemDeposito;
     private javax.swing.JMenuItem itemEmpresa;
+    private javax.swing.JMenuItem itemImpresora;
     private javax.swing.JMenuItem itemImpuesto;
     private javax.swing.JMenuItem itemLinea;
     private javax.swing.JMenuItem itemListaPrecio;
