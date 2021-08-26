@@ -1764,8 +1764,9 @@ public class JFrmCompra extends javax.swing.JInternalFrame {
             }
         });
 
+        txtDescripcionMoneda.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtDescripcionMoneda.setEnabled(false);
-        txtDescripcionMoneda.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        txtDescripcionMoneda.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         txtDescripcionMoneda.setPrompt("Descripción o nombre de la moneda...");
 
         txtCodigoDeposito.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
@@ -1784,8 +1785,9 @@ public class JFrmCompra extends javax.swing.JInternalFrame {
             }
         });
 
+        txtDescripcionDeposito.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtDescripcionDeposito.setEnabled(false);
-        txtDescripcionDeposito.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        txtDescripcionDeposito.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         txtDescripcionDeposito.setPrompt("Descripción o nombre del depósito...");
 
         txtCodigoProveedor.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
@@ -1805,8 +1807,9 @@ public class JFrmCompra extends javax.swing.JInternalFrame {
         });
 
         txtDescripcionProveedor.setToolTipText("Razón Social del proveedor...");
+        txtDescripcionProveedor.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtDescripcionProveedor.setEnabled(false);
-        txtDescripcionProveedor.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        txtDescripcionProveedor.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         txtDescripcionProveedor.setPrompt("Razón Social del proveedor...");
 
         jLabel9.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
@@ -1862,8 +1865,9 @@ public class JFrmCompra extends javax.swing.JInternalFrame {
             }
         });
 
+        txtDescripcionCuenta.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtDescripcionCuenta.setEnabled(false);
-        txtDescripcionCuenta.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        txtDescripcionCuenta.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         txtDescripcionCuenta.setPrompt("Descripción o nombre de la cuenta...");
 
         jLabel21.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N

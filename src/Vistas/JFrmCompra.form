@@ -1529,9 +1529,12 @@
             </Component>
             <Component class="org.jdesktop.swingx.JXTextField" name="txtDescripcionMoneda">
               <Properties>
+                <Property name="disabledTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="0" type="rgb"/>
+                </Property>
                 <Property name="enabled" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="SansSerif" size="12" style="0"/>
+                  <Font name="SansSerif" size="12" style="1"/>
                 </Property>
                 <Property name="prompt" type="java.lang.String" value="Descripci&#xf3;n o nombre de la moneda..."/>
               </Properties>
@@ -1551,9 +1554,12 @@
             </Component>
             <Component class="org.jdesktop.swingx.JXTextField" name="txtDescripcionDeposito">
               <Properties>
+                <Property name="disabledTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="0" type="rgb"/>
+                </Property>
                 <Property name="enabled" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="SansSerif" size="12" style="0"/>
+                  <Font name="SansSerif" size="12" style="1"/>
                 </Property>
                 <Property name="prompt" type="java.lang.String" value="Descripci&#xf3;n o nombre del dep&#xf3;sito..."/>
               </Properties>
@@ -1574,9 +1580,12 @@
             <Component class="org.jdesktop.swingx.JXTextField" name="txtDescripcionProveedor">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Raz&#xf3;n Social del proveedor..."/>
+                <Property name="disabledTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="0" type="rgb"/>
+                </Property>
                 <Property name="enabled" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="SansSerif" size="12" style="0"/>
+                  <Font name="SansSerif" size="12" style="1"/>
                 </Property>
                 <Property name="prompt" type="java.lang.String" value="Raz&#xf3;n Social del proveedor..."/>
               </Properties>
@@ -1641,9 +1650,12 @@
             </Component>
             <Component class="org.jdesktop.swingx.JXTextField" name="txtDescripcionCuenta">
               <Properties>
+                <Property name="disabledTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="0" type="rgb"/>
+                </Property>
                 <Property name="enabled" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="SansSerif" size="12" style="0"/>
+                  <Font name="SansSerif" size="12" style="1"/>
                 </Property>
                 <Property name="prompt" type="java.lang.String" value="Descripci&#xf3;n o nombre de la cuenta..."/>
               </Properties>
